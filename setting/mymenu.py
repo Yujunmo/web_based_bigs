@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import openai
+from common.gpt_learning_data import gpt_data
 
 # 추후 공통정보로 빼야함
 project_path = os.getcwd()
@@ -122,7 +123,8 @@ if prompt := st.chat_input("메시지를 입력하세요..."):
                     model="gpt-3.5-turbo",
                     messages=[
                         {"role": "system", "content": "당신은 도움이 되는 AI 어시스턴트입니다."},
-                        *st.session_state.messages
+                        *st.session_state.messages,
+                        *gpt_data
                     ],
                     max_tokens=1000,
                     temperature=0.7

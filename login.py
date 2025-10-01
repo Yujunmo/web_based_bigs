@@ -1,4 +1,5 @@
 import streamlit as st
+from common.key import OPEN_AI_KEY
 
 # 페이지 설정
 st.set_page_config(

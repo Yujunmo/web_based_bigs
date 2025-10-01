@@ -19,7 +19,7 @@ bm_name_list = {
 }
 
 
-
+# 내부수익률 계산 함수
 def xirr_function(cashflows:list[float], dates:list[datetime], guess:float=0.1)->float:    
     days = np.array([(date - dates[0]).days for date in dates])
     try:
@@ -29,7 +29,7 @@ def xirr_function(cashflows:list[float], dates:list[datetime], guess:float=0.1)-
     return rs
 
 
-
+# 종류별 시작일자 가져오는 함수
 def cal_strn_date(strn_date:datetime, end_date:datetime, selected_columns) -> dict[str,str]:
 
     strn_dates = {}
@@ -52,7 +52,7 @@ def cal_strn_date(strn_date:datetime, end_date:datetime, selected_columns) -> di
 
     return strn_dates
 
-#수익률 계산 함수
+#기간 수익률 계산 함수
 def cal_performance(df, target_funds, target_columns, strn_date :datetime, end_date:datetime):
 
     

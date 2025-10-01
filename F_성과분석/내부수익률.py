@@ -6,6 +6,17 @@ import plotly.express as px
 from common.validation import date_validation
 from common.rnrt_function import xirr_function
 
+@st.cache_data
+def load_data(format : str, file_name : str) -> pd.DataFrame:
+    if format == 'xlsx':
+        df = pd.read_excel(file_name)
+    elif format == 'csv':
+        df = pd.read_csv(file_name)
+    else:
+        st.error("업로드 실패: 엑셀 또는 csv 파일만 업로드 가능합니다.")
+    return df
+    
+
 st.title("내부수익률")
 
 # 페이지 전체에 스타일 주입
@@ -32,9 +43,9 @@ with st.container():
         if uploaded_file is not None:
             try:
                 if uploaded_file.name.endswith('.xlsx') or uploaded_file.name.endswith('.xls'):
-                    df = pd.read_excel(uploaded_file)
+                    df = load_data('xlsx',uploaded_file)
                 elif uploaded_file.name.endswith('.csv'):
-                    df = pd.read_csv(uploaded_file)
+                    df = load_data('csv',uploaded_file)
                 else:
                     st.error("업로드 실패: 엑셀 또는 csv 파일만 업로드 가능합니다.")
 

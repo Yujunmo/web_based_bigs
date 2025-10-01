@@ -7,7 +7,7 @@
 3. 가상환경 진입 (window : activate ,  linux,mac : source bin/activate )
 4. pip install -r requirements.txt
 5. streamlit run login.py
-   
+   <br>
    ** 챗봇 사용하려면, common 폴더 아래 key.py 에 open ai key 를 등록해야함
    ** 현재 구현이 된 화면은 setting 폴더와 F_성과분석 폴더의 화면들임 **
 

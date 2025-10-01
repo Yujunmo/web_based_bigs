@@ -95,6 +95,10 @@ if not st.session_state.logged_in:
                     st.session_state.logged_in = True
                     st.session_state.username = username
                     st.success("로그인 성공!")
+                    
+                    if "api_key" not in st.session_state:
+                        st.session_state.api_key = OPEN_AI_KEY
+                    
                     st.rerun()
                 else:
                     st.error("아이디 또는 비밀번호가 올바르지 않습니다.")

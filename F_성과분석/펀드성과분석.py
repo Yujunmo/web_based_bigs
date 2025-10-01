@@ -7,19 +7,6 @@ import openai
 from common.validation import date_validation
 from common.rnrt_function import get_bm_data, cal_performance
 
-bm_code_list ={
-    '코스피':'^KS11',
-    '코스닥':'^KQ11',
-    'S&P 500':'^GSPC',
-    '나스닥':'^IXIC'
-}
-bm_name_list = {
-    '^KS11':'코스피',
-    '^KQ11':'코스닥',
-    '^GSPC':'S&P 500',
-    '^IXIC':'나스닥'
-}
-
 # CSS 스타일 [공통으로 css 관리 필요함]
 st.markdown("""
 <style>
@@ -34,6 +21,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+bm_code_list ={
+    '코스피':'^KS11',
+    '코스닥':'^KQ11',
+    'S&P 500':'^GSPC',
+    '나스닥':'^IXIC'
+}
+bm_name_list = {
+    '^KS11':'코스피',
+    '^KQ11':'코스닥',
+    '^GSPC':'S&P 500',
+    '^IXIC':'나스닥'
+}
 
 # 챗봇 대화 초기화
 def clear_chat():

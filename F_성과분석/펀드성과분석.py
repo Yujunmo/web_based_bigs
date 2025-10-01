@@ -54,11 +54,6 @@ def cal_performance(df, target_funds, target_columns, strn_date :datetime, end_d
         
     return performance_data
 
-    if strn_date > end_date:
-        st.error("시작일자가 끝일자보다 큽니다.")  
-        return False
-    return True
-
 bm_code_list ={
     '코스피':'^KS11',
     '코스닥':'^KQ11',
@@ -99,6 +94,17 @@ def clear_chat():
     st.session_state.messages = []
     st.rerun()
 
+@st.cache_data
+def load_data(format : str, file_name : str) -> pd.DataFrame:
+    if format == 'xlsx':
+        df = pd.read_excel(file_name)
+    elif format == 'csv':
+        df = pd.read_csv(file_name)
+    else:
+        st.error("업로드 실패: 엑셀 또는 csv 파일만 업로드 가능합니다.")
+    return df
+    
+
 
 # CSS 스타일 [공통으로 css 관리 필요함]
 st.markdown("""
@@ -125,9 +131,9 @@ with st.container():
         if uploaded_file is not None:
             try:
                 if uploaded_file.name.endswith('.xlsx') or uploaded_file.name.endswith('.xls'):
-                    df = pd.read_excel(uploaded_file)
+                    df = load_data('xlsx',uploaded_file)
                 elif uploaded_file.name.endswith('.csv'):
-                    df = pd.read_csv(uploaded_file)
+                    df = load_data('csv',uploaded_file)
                 else:
                     st.error("업로드 실패: 엑셀 또는 csv 파일만 업로드 가능합니다.")
 

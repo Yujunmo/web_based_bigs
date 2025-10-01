@@ -11,5 +11,5 @@
    ** 현재 구현이 된 화면은 setting 폴더와 F_성과분석 폴더의 화면들임 **
 
 <img width="783" height="488" alt="Image" src="https://github.com/user-attachments/assets/d1e646c1-1d0e-471f-8b2d-e5d926d19f12" />
-
+<img width="1383" height="787" alt="Image" src="https://github.com/user-attachments/assets/c69d760b-2e5a-48a3-9916-58842f1c66b7" />
 <img width="1797" height="1026" alt="Image" src="https://github.com/user-attachments/assets/0ee0edb1-aa08-4c48-8654-35a24ee964fa" />

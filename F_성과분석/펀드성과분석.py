@@ -140,7 +140,7 @@ with st.container():
             
             chked_graph_fund = st.checkbox("펀드 그래프",value=False,key="chk_graph_fund")
             chked_graph_bm = st.checkbox("BM 그래프",value=False,key="chk_graph_bm")
-            chked_graph_excess = st.checkbox("초과 수익률 그래프",value=False,key="chk_graph_excess")
+            chked_graph_excess = st.checkbox("초과 수익률 그래프",value=True,key="chk_graph_excess")
 
         with cols[1]:
             selected_funds = st.multiselect("검색할 펀드들을 선택하세요", df['펀드코드'].unique(),key="graph_selected_funds")

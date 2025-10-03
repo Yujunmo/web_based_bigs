@@ -95,7 +95,7 @@ if not st.session_state.logged_in:
                 if username == "admin" and password == "zaq1@WSX":
                     st.session_state.logged_in = True
                     st.session_state.username = username
-                    st.success("로그인 성공!")
+                    st.success("로그인 성공!!")
                     
                     if "api_key" not in st.session_state:
                         st.session_state.api_key = OPEN_AI_KEY

@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import date, datetime, timedelta
+from dateutil.relativedelta import relativedelta
 import plotly.express as px
 import yfinance as yf
 import openai
@@ -122,10 +123,10 @@ with st.container():
                     target_bms.append(bm_code_list[bm_name])
         
         with cols[2]:
-            strn_date = st.date_input("시작일자를 선택하세요", value=date.today(),key="graph_strn_date")
+            strn_date = st.date_input("시작일자를 선택하세요", value=date.today()- relativedelta(months=1),key="graph_strn_date")
             
         with cols[3]:
-            end_date = st.date_input("끝일자를 선택하세요", value=date.today(),key="graph_end_date")    
+            end_date = st.date_input("끝일자를 선택하세요", value=date.today() ,key="graph_end_date")    
 
 
         # 그래프그리기

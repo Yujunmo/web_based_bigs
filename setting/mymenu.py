@@ -4,15 +4,6 @@ import openai
 from common.gpt_learning_data import gpt_data
 import common.component as component
 
-# 추후 공통정보로 빼야함
-project_path = os.getcwd()
-
-
-def clear_chat():
-    st.session_state.messages = []
-    st.rerun()
-
-
 # 페이지 전체에 스타일 주입
 st.markdown("""
     <style>
@@ -28,6 +19,9 @@ st.markdown("""
     <h1>My menu</h1>
 """
 , unsafe_allow_html=True)
+
+# 추후 공통정보로 빼야함
+project_path = os.getcwd()
 
 # 폴더별로 파일 목록 표시
 folders = [folder for folder in os.listdir(project_path) if os.path.isdir(os.path.join(project_path, folder)) and folder.startswith("F_")]

@@ -8,7 +8,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# 파비콘 설정
 st.markdown("""
 <link rel="icon" type="image/png" href="static/img/shinhan.png">
 """, unsafe_allow_html=True)

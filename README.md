@@ -9,7 +9,9 @@
 4. pip install -r requirements.txt
 5. streamlit run login.py
    <br>
-   ** 챗봇 사용하려면, common 폴더 아래 key.py 에 open ai key 를 등록해야함
+   ** 챗봇 사용하려면, llm 둘 중 하나를 선택해야 하며<br>
+   - gpt의 경우 : common 폴더 아래 key.py 에 open ai key 를 등록해야함<br>
+   - exaone 의 경우 : exaone3.5:2.4b 을 로컬에 설치해야함 
    <br>
    ** 현재 구현이 된 화면은 setting 폴더와 F_성과분석 폴더의 화면들임 **
 

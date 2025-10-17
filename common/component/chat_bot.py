@@ -68,7 +68,7 @@ def draw_chatbot(key:str):
                         )                    
 
                         menu_chain ={"question" : RunnablePassthrough()} |chat_prompt_template | llm | StrOutputParser()
-                        response = menu_chain.invoke(prompt)
+                        response = menu_chain.stream(prompt)
 
             except Exception as e:
                 if check_point == 1:
@@ -77,13 +77,15 @@ def draw_chatbot(key:str):
                     response = f"❌ exaone3 이 로컬에 설치되었는지 확인하세요: {str(e)}"
         else:
             response = "⚠️ API 키를 먼저 입력해주세요."
-        
-        # 봇 응답 추가
-        st.session_state.messages.append({"role": "assistant", "content": response})
-        
+
         # 봇 응답 표시
         with st.chat_message("assistant"):
-            st.markdown(response)
+            ai_message = st.write_stream(response)
+
+        # 봇 응답 추가
+        st.session_state.messages.append({"role": "assistant", "content": ai_message})
+        
+
 
     def clear_chat():
         st.session_state.messages = []

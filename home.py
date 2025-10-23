@@ -44,10 +44,15 @@ if st.session_state.logged_in:
     
     ### 개선 필요 : 파일 추가하면 자동으로 잡히게 
     # pagelist
+
+    # 관리
     setting = st.Page("setting/mymenu.py", title="관리", icon=":material/settings:", default=True)
 
+    # 검색
+    chatting = st.Page("F_검색/챗봇서비스.py", title="챗봇", icon=":material/chat:")    
+
     # 기본정보
-    fund_info = st.Page("F_기본정보/펀드기본정보.py", title="펀드정보", icon=":material/dashboard:")
+    fund_info = st.Page("F_기본정보/펀드종합정보.py", title="펀드종합정보", icon=":material/dashboard:")
     mngr_info = st.Page("F_기본정보/운용역정보.py", title="운용역정보", icon=":material/dashboard:")
 
     # 보유현황
@@ -65,10 +70,11 @@ if st.session_state.logged_in:
     # 거래내역
     stock_trade_history = st.Page("F_거래내역/주식거래내역.py", title="주식거래내역", icon=":material/dashboard:")
     # page setting 
-
+    
     pg = st.navigation(
         {
             "Account": [setting],
+            "검색": [chatting],            
             "기본정보": [fund_info, mngr_info],
             "보유현황": [stock_holding_status, bond_holding_status, total_holding_status],        
             "성과분석": [performance, xirr],
@@ -84,13 +90,12 @@ if st.session_state.logged_in:
     if st.session_state.get("my_menu"):
         tmp_dict = {}
         for folder_name,file_name in st.session_state.get("my_menu").items():
-            st.sidebar.write(folder_name)
             with st.sidebar.expander(f"📁 {folder_name}", expanded=False):
                 for file in file_name:
-                    clicked = st.button(f"• {file}")     
-                    if clicked:
+                    if st.button(f"• {file}")   :
                         st.switch_page(st.session_state.file_dir[file])
-                
+
+      
     st.sidebar.button("Logout", on_click=logout)
     pg.run()
 

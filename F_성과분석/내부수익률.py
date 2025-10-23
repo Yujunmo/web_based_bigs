@@ -6,21 +6,8 @@ import plotly.express as px
 from common.validation import date_validation
 from common.rnrt_function import xirr_function
 import common.component as component
-
-
-st.markdown("""
-<style>
-    .block-container {
-        padding-left: 10rem;
-        padding-right: 10rem;
-        max-width: 100% !important;
-    }
-    h1 {
-        text-align: left !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
+import common.css as css
+css.apply_css() # 페이지 전체에 스타일 주입
 
 st.title("내부수익률")
 
@@ -71,7 +58,7 @@ with st.container():
                     df_xirr = pd.DataFrame(rs_list)
                     df_xirr['내부수익률'] = df_xirr['내부수익률'].round(2)
                     df_xirr.rename(columns={'내부수익률':'내부수익률(%)'},inplace=True)
-                    st.dataframe(df_xirr, use_container_width=False)
+                    st.dataframe(df_xirr, use_container_width=True)
 
             else:
                 st.error("데이터가 없습니다.")

@@ -1,5 +1,4 @@
 import streamlit as st
-from common.key import OPEN_AI_KEY
 
 # 페이지 설정
 st.set_page_config(
@@ -36,10 +35,10 @@ st.markdown("""
     button[kind="primary"] {
         background-color: #004080 !important;
         border-color: #004080 !important;
-        width: 100% !important;
-        height: 50px !important;
+        width: 300%;
+        height: 40px !important;
         font-size: 18px !important;
-        padding: 15px !important;        
+
     }
     button[kind="primary"]:hover {
         background-color: #0056b3 !important;
@@ -95,9 +94,6 @@ if not st.session_state.logged_in:
                     st.session_state.logged_in = True
                     st.session_state.username = username
                     st.success("로그인 성공!!")
-                    
-                    if "api_key" not in st.session_state:
-                        st.session_state.api_key = OPEN_AI_KEY
                     
                     st.rerun()
                 else:

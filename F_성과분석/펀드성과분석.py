@@ -3,25 +3,11 @@ import pandas as pd
 from datetime import date, datetime, timedelta
 from dateutil.relativedelta import relativedelta
 import plotly.express as px
-import yfinance as yf
-import openai
 from common.validation import date_validation
 from common.rnrt_function import get_bm_data, cal_performance
 import common.component as component
-
-
-st.markdown("""
-<style>
-    .block-container {
-        padding-left: 10rem;
-        padding-right: 10rem;
-        max-width: 100% !important;
-    }
-    h1 {
-        text-align: left !important;
-    }
-</style>
-""", unsafe_allow_html=True)
+import common.css as css
+css.apply_css() # 페이지 전체에 스타일 주입
 
 bm_code_list ={
     '코스피':'^KS11',
@@ -36,7 +22,6 @@ bm_name_list = {
     '^IXIC':'나스닥'
 }
 
-
 st.title("펀드성과분석")
 
 # 파일 업로드
@@ -48,7 +33,6 @@ with st.container():
     st.subheader("펀드별 수익률 계산")
 
     if uploaded_file is not None:
-
 
         # 검색조건 [ 공통화 대상 ]
         cols = st.columns([1,2,0.7,0.7,2])

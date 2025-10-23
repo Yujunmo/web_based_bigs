@@ -1,26 +1,11 @@
 import streamlit as st
 import os
-import openai
-from common.gpt_learning_data import gpt_data
 import common.component as component
+import common.css as css
+css.apply_css() # 페이지 전체에 스타일 주입 
 
-# 페이지 전체에 스타일 주입
-st.markdown("""
-    <style>
-        .block-container {
-            padding-left: 10rem;
-            padding-right: 10rem;
-            max-width: 100% !important;
-        }
-        h1 {
-            text-align: left !important;
-        }
-    </style>
-    <h1>My menu</h1>
-"""
-, unsafe_allow_html=True)
+st.title("메뉴 세팅")
 
-# 추후 공통정보로 빼야함
 project_path = os.getcwd()
 
 # 폴더별로 파일 목록 표시

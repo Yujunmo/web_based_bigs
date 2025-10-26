@@ -7,6 +7,8 @@ from common.validation import date_validation
 from common.rnrt_function import get_bm_data, cal_performance
 import common.component as component
 import common.css as css
+import plotly.graph_objects as go
+
 css.apply_css() # 페이지 전체에 스타일 주입
 
 bm_code_list ={
@@ -72,7 +74,7 @@ with st.container():
             else:
                 st.error("데이터가 없습니다.")
 
-# 누적수익률 그래프        
+# 기간수익률 그래프        
 with st.container():
     st.write("--------------------------------")
     st.subheader("수익률 그래프")
@@ -125,13 +127,13 @@ with st.container():
                 inital_data = df.loc[fund_cond & (df['일자'] == strn_date.strftime('%Y-%m-%d')),['펀드코드','일자','수정기준가']].rename(columns={'일자':'시작_일자','수정기준가':'시작_수정기준가'})
                 
                 df_graph_data = pd.merge(df_graph_data,inital_data,on='펀드코드',how='left')
-                df_graph_data['누적수익률'] = ((df_graph_data['수정기준가'] / df_graph_data['시작_수정기준가'] - 1) * 100).round(2)
-                df_graph_data = df_graph_data[['펀드코드','펀드명','일자','누적수익률']]
+                df_graph_data['기간수익률'] = ((df_graph_data['수정기준가'] / df_graph_data['시작_수정기준가'] - 1) * 100).round(2)
+                df_graph_data = df_graph_data[['펀드코드','펀드명','일자','기간수익률']]
 
                 if chked_graph_fund:  
-                    fig = px.line(df_graph_data, x='일자', y='누적수익률',color='펀드코드')
+                    fig = px.line(df_graph_data, x='일자', y='기간수익률',color='펀드명')
                     # Plotly 그래프 스트림릿에 표시
-                    st.markdown("<h4>펀드 누적 수익률 그래프</h4>", unsafe_allow_html=True)
+                    st.markdown("<h4>펀드 기간 수익률 그래프</h4>", unsafe_allow_html=True)
                     st.plotly_chart(fig, use_container_width=True)
                     
             # BM 그래프
@@ -141,24 +143,51 @@ with st.container():
                 bm_data = get_bm_data(target_bms, strn_date, end_date)
                 if chked_graph_bm:
                     if bm_data is not None:
-                        fig = px.line(bm_data, x='일자', y='누적수익률',color='BM명')
+                        fig = px.line(bm_data, x='일자', y='기간수익률',color='BM명')
                         
-                        st.markdown("<h4>BM 누적 수익률 그래프</h4>", unsafe_allow_html=True)
+                        st.markdown("<h4>BM 기간 수익률 그래프</h4>", unsafe_allow_html=True)
                         st.plotly_chart(fig, use_container_width=True)
 
             # 초과 수익률 그래프
+            excess_data = pd.DataFrame()
             if len(target_funds) > 0 or len(target_bms) > 0:
                 if chked_graph_excess:
                     if df_graph_data is not None:
                         fund_data = df_graph_data.rename(columns={'펀드코드':'코드','펀드명':'이름'})
                     # else:
-                    #     fund_data = pd.DataFrame()
+                    #     fund_data = pd.DataFrame()간
                     if bm_data is not None:
                         bm_data = bm_data.rename(columns={'BM코드':'코드','BM명':'이름'})
 
+                    if df_graph_data is not None and bm_data is not None:
+                        if  len(target_bms) ==1 and len(target_funds) ==1:
+                            # 두 데이터프레임의 일자를 기준으로 조인
+                            merged_data = pd.merge(fund_data, bm_data, on='일자', suffixes=('_fund', '_bm'))
+                            merged_data['기간수익률'] = merged_data['기간수익률_fund'] - merged_data['기간수익률_bm']
+                            excess_data = merged_data[['일자','기간수익률']].copy()
+                            excess_data.loc['코드'] = "초과수익률"
+                            excess_data.loc['이름'] = "초과수익률"
+
                     stacked_data = pd.concat([fund_data,bm_data])
 
-                    fig = px.line(stacked_data, x='일자', y='누적수익률',color='이름')
+                    fig = px.line(stacked_data, x='일자', y='기간수익률',color='이름')
+                    if len(excess_data)> 0:
+                        # 막대 그래프 (excess_data 추가)
+                        fig.add_trace(go.Bar(
+                            x=excess_data['일자'],
+                            y=excess_data['기간수익률'],
+                            name='초과수익률',
+                            opacity=0.4,        # 반투명
+                            marker_color='red' # 색상 지정 가능
+                        ))
+
+                        # 레이아웃 조정
+                        fig.update_layout(
+                            yaxis_title='기간수익률',
+                            xaxis_title='일자',
+                            barmode='overlay'  # 막대와 선 겹치기
+                        )                    
+
                     st.markdown("<h4>초과 수익률 그래프</h4>", unsafe_allow_html=True)
                     st.plotly_chart(fig, use_container_width=True)
         else:

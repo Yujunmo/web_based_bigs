@@ -45,7 +45,7 @@ with st.container():
                     # vector data 생성 ( upstage embedding모델 사용중. 고정)
                     rag.vecotrize_data(document_list=chunked_list, model_type=global_data.support_vector_db_type, db_dir=db_dir, collection_name=selected_subject)            
                                 
-                st.success("업로드 완료")
+                st.success("학습 완료")
 st.write("--------------------------------")                
 component.chat_bot.draw_chatbot('챗봇서비스', selected_subject)
 

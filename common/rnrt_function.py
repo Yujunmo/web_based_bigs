@@ -90,9 +90,9 @@ def get_bm_data(bm_code_list:list, strn_date, end_date)->pd.DataFrame:
         if len(data) > 0:
             data.insert(0,'BM코드',bm_code)
             data.insert(1,'BM명',bm_name_list[bm_code])
-            data['누적수익률'] = ((data['종가'] / data['종가'].iloc[0] - 1) * 100).round(2)
+            data['기간수익률'] = ((data['종가'] / data['종가'].iloc[0] - 1) * 100).round(2)
             data['일자'] = pd.to_datetime(data['일자']).dt.strftime('%Y-%m-%d')
-            data = data[['BM코드','BM명','일자','누적수익률']]
+            data = data[['BM코드','BM명','일자','기간수익률']]
             df_list.append(data)
 
     if len(df_list) > 0:

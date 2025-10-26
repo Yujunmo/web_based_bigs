@@ -10,7 +10,7 @@
 5. streamlit run login.py
    <br>
    ** 챗봇 사용하려면, llm 둘 중 하나를 선택해야 하며<br>
-   - openai, upstage의 경우 : common 폴더 아래 .env에 key 를 등록해야함<br>
+   - openai, upstage의 경우 : common 폴더 아래 .env를 생성후 key 를 등록해야함<br>
    ** 현재 구현이 된 화면은 setting 폴더와 F_성과분석 폴더의 화면들임 **
 
 <img width="783" height="488" alt="Image" src="https://github.com/user-attachments/assets/d1e646c1-1d0e-471f-8b2d-e5d926d19f12" />
